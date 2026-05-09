@@ -1,35 +1,94 @@
+// import React from "react";
+// import { NavLink } from "react-router-dom";
+// import { RouteIndex, RouteTaskList } from "../helper/RouteName";
+
+// const Navigation = () => {
+//   const baseClass =
+//     "px-6 py-3 rounded-2xl font-medium text-sm transition-all duration-300";
+
+//   const activeClass =
+//     "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30";
+
+//   const inactiveClass =
+//     "bg-white/10 text-gray-300 border border-white/10 hover:bg-white/20 hover:text-white";
+
+//   return (
+//     <div className="flex gap-4 mb-8 border-b border-white/10 pb-6 flex-wrap">
+//       <NavLink
+//         to={RouteIndex}
+//         className={({ isActive }) =>
+//           `${baseClass} ${isActive ? activeClass : inactiveClass}`
+//         }
+//       >
+//         Add Task
+//       </NavLink>
+
+//       <NavLink
+//         to={RouteTaskList}
+//         className={({ isActive }) =>
+//           `${baseClass} ${isActive ? activeClass : inactiveClass}`
+//         }
+//       >
+//         My Tasks
+//       </NavLink>
+//     </div>
+//   );
+// };
+
+// export default Navigation;
+
+
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { RouteIndex, RouteTaskList } from "../helper/RouteName";
 
 const Navigation = () => {
- 
-    const buttonClass =
-        "py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100";
+  const navigate = useNavigate();
 
-    const activeButtonClass =
-        "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none";
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
-    return (
-        <div className="pb-5 border-b flex gap-5">
-            <NavLink
-                to={RouteIndex}
-                className={({ isActive }) =>
-                    isActive ? activeButtonClass : buttonClass
-                }
-            >
-                Add Task
-            </NavLink>
-            <NavLink
-                to={RouteTaskList}
-                className={({ isActive }) =>
-                    isActive ? activeButtonClass : buttonClass
-                }
-            >
-                My Task
-            </NavLink>
-        </div>
-    );
+  const baseClass =
+    "px-6 py-3 rounded-2xl font-medium text-sm transition-all duration-300";
+
+  const activeClass =
+    "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30";
+
+  const inactiveClass =
+    "bg-white/10 text-gray-300 border border-white/10 hover:bg-white/20 hover:text-white";
+
+  return (
+    <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-6 flex-wrap gap-4">
+      <div className="flex gap-4 flex-wrap">
+        <NavLink
+          to={RouteIndex}
+          className={({ isActive }) =>
+            `${baseClass} ${isActive ? activeClass : inactiveClass}`
+          }
+        >
+          Add Task
+        </NavLink>
+
+        <NavLink
+          to={RouteTaskList}
+          className={({ isActive }) =>
+            `${baseClass} ${isActive ? activeClass : inactiveClass}`
+          }
+        >
+          My Tasks
+        </NavLink>
+      </div>
+
+      <button
+        onClick={logout}
+        className="px-6 py-3 rounded-2xl bg-red-500/80 text-white font-medium hover:bg-red-600 transition"
+      >
+        Logout
+      </button>
+    </div>
+  );
 };
 
 export default Navigation;

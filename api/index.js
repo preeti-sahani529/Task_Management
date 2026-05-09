@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import Taskrouter from './routes/Task.route.js'
+import Authrouter from './routes/Auth.route.js'
 
 dotenv.config()
 
@@ -19,6 +20,7 @@ app.use(cors({
 // routes 
 
 app.use('/api/task', Taskrouter)
+app.use('/api/auth', Authrouter)
 
 mongoose.connect(process.env.MONGODB_CONN).then(() => {
     console.log('Database connected.')

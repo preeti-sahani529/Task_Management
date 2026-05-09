@@ -1,30 +1,20 @@
 import React from "react";
 
 const Badge = ({ props }) => {
-    return (
-        <>
-            {props.color === "blue" && (
-                <span className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-                    {props.text}
-                </span>
-            )}
-            {props.color === "red" && (
-                <span className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-                    {props.text}
-                </span>
-            )}
-            {props.color === "green" && (
-                <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-                    {props.text}
-                </span>
-            )}
-            {props.color === "yellow" && (
-                <span className="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-                    {props.text}
-                </span>
-            )}
-        </>
-    );
+  const badgeStyles = {
+    blue: "bg-blue-500/20 text-blue-300 border border-blue-400/30",
+    red: "bg-red-500/20 text-red-300 border border-red-400/30",
+    green: "bg-green-500/20 text-green-300 border border-green-400/30",
+    yellow: "bg-yellow-500/20 text-yellow-300 border border-yellow-400/30",
+  };
+
+  return (
+    <span
+      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${badgeStyles[props.color]}`}
+    >
+      {props.text}
+    </span>
+  );
 };
 
 export default Badge;

@@ -1,84 +1,84 @@
-import React, { useEffect, useState } from 'react'
-import Badge from './Badge'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import Badge from "./Badge";
+import { Link } from "react-router-dom";
 
 const Task = ({ props, onDelete }) => {
-    const [badgecolor, setBadgecolor] = useState()
-    useEffect(() => {
-        if (props.status === 'Pending') {
-            setBadgecolor('blue')
-        }
-        else if (props.status === 'Running') {
-            setBadgecolor('yellow')
-        }
-        else if (props.status === 'Completed') {
-            setBadgecolor('green')
-        }
-        else if (props.status === 'Failed') {
-            setBadgecolor('red')
-        }
-    }, [props.status])
+  const [badgecolor, setBadgecolor] = useState();
 
-    const handleDelete = async () => {
-        await onDelete(props._id)
+  useEffect(() => {
+    if (props.status === "Pending") {
+      setBadgecolor("blue");
+    } else if (props.status === "Running") {
+      setBadgecolor("yellow");
+    } else if (props.status === "Completed") {
+      setBadgecolor("green");
+    } else if (props.status === "Failed") {
+      setBadgecolor("red");
     }
+  }, [props.status]);
 
-    return (
-        <div className="border p-3 rounded-md mb-5">
-            <h3 className="text-lg font-semibold">
-                <span className="me-2">
-                    {props.title}
-                </span>
-                <Badge props={{ color: badgecolor, text: props.status }} />
-            </h3>
-            <p className="line-clamp-2 mb-3">
-                {props.description}
-            </p>
-            <div className="flex gap-5 items-center">
-                <Link to={`/show-task/${props._id}`} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  text-center inline-flex items-center p-2">
-                    <svg
-                        className="w-5 h-5"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"
-                        />
-                        <path
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                        />
-                    </svg>
-                </Link>
-                <button onClick={handleDelete} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm  text-center inline-flex items-center p-2">
-                    <svg
-                        className="w-5 h-5"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
-                        />
-                    </svg>
-                </button>
-            </div>
+  const handleDelete = async () => {
+    await onDelete(props._id);
+  };
+
+  return (
+    <div className="rounded-3xl bg-white/10 border border-white/10 backdrop-blur-lg p-6 shadow-xl hover:scale-[1.02] transition duration-300">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 flex-wrap mb-3">
+            <h3 className="text-xl font-bold text-white">{props.title}</h3>
+            <Badge props={{ color: badgecolor, text: props.status }} />
+          </div>
+
+          <p className="text-gray-300 leading-relaxed line-clamp-3">
+            {props.description}
+          </p>
+          {props.dueDate && (
+    <p className="text-sm text-indigo-300 mt-3 font-medium">
+      Due Date: {new Date(props.dueDate).toLocaleDateString()}
+    </p>
+  )}
         </div>
-    )
-}
 
-export default Task
+        <div className="flex gap-3">
+          <Link
+            to={`/show-task/${props._id}`}
+            className="p-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg hover:scale-110 transition duration-300"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </Link>
+
+          <button
+            onClick={handleDelete}
+            className="p-3 rounded-2xl bg-red-500/80 text-white shadow-lg hover:scale-110 transition duration-300"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 7h14M10 11v6M14 11v6M9 4h6l1 3H8l1-3ZM6 7h12v13H6V7Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Task;
